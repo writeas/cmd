@@ -13,6 +13,7 @@ import (
 var (
 	outDir string
 	indexPage []byte
+	debugging bool
 )
 
 func poster(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +30,11 @@ func poster(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Couldn't save :(\n")
 		return
 	}
+
+	if debugging {
+		fmt.Printf("Saved new post %s\n", filename)
+	}
+
 	fmt.Fprintf(w, "https://write.as/%s", filename)
 	if !strings.Contains(r.UserAgent(), "Android") {
 		fmt.Fprint(w, "\n")
@@ -39,9 +45,11 @@ func main() {
 	outDirPtr := flag.String("o", "/home/matt", "Directory where text files will be stored.")
 	staticDirPtr := flag.String("s", "./static", "Directory where required static files exist.")
 	portPtr := flag.Int("p", 8080, "Port to listen on.")
+	debugPtr := flag.Bool("debug", false, "Enables garrulous debug logging.")
 	flag.Parse()
 
 	outDir = *outDirPtr
+	debugging = *debugPtr
 
 	fmt.Print("Initializing...")
 	var err error
