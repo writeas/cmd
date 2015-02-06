@@ -45,7 +45,7 @@ func main() {
 
 	fmt.Print("Initializing...")
 	var err error
-	indexPage, err = ioutil.ReadFile(*staticDirPtr + "/cmd.txt")
+	indexPage, err = ioutil.ReadFile(*staticDirPtr + "/index.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
