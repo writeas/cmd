@@ -19,6 +19,11 @@ on Twitter or get notified when we launch at https://write.as.
 You can also use telnet: nerds.write.as
 
 
+SOURCE CODE
+———————————
+https://github.com/writeas/cmd
+
+
 BUGS/ISSUES/YOU HACKED THE GIBSON
 —————————————————————————————————
 Report bugs and flaws to hello@write.as.
