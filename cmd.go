@@ -42,7 +42,7 @@ func poster(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	outDirPtr := flag.String("o", "/home/matt", "Directory where text files will be stored.")
+	outDirPtr := flag.String("o", "/var/write", "Directory where text files will be stored.")
 	staticDirPtr := flag.String("s", "./static", "Directory where required static files exist.")
 	portPtr := flag.Int("p", 8080, "Port to listen on.")
 	debugPtr := flag.Bool("debug", false, "Enables garrulous debug logging.")
