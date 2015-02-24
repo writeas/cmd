@@ -18,17 +18,28 @@ Options:
   --debug
        Enables garrulous debug logging.
   -o   
-       Directory where text files will be stored.
+       Directory where text files will be stored. If not supplied, will try to
+       use database for storage (see Environment Variables).
   -s
        Directory where required static files exist (like the banner).
   -p
        Port to listen on.
+
+Environment Variables:
+  WA_USER
+       Database user.
+  WA_PASSWORD
+       Database password.
+  WA_HOST
+       Database host. Default: localhost
+  WA_DB
+       Database name.
 ```
 
-The default configuration (without any flags) is essentially:
+The default configuration (without any flags) is essentially the following line. **You'll need to supply the `-o` flag or database env variables to store posts**.
 
 ```
-cmd -o /var/write -s ./static -p 8080
+cmd -s ./static -p 8080
 ```
 
 ## How it works
