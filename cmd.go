@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	outDir string
+	outDir    string
 	indexPage []byte
 	debugging bool
 	db        *sql.DB
