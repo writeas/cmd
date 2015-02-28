@@ -1,4 +1,4 @@
-Welcome to cmd.write.as!
+command line pastebin | cmd.write.as
 
 ████████████████████████████████████████████████████
 █                                                  █
@@ -16,6 +16,23 @@ We have many plans, all based in text/plain. Keep up to date with us @writeas__
 on Twitter or get notified when we launch at https://write.as.
 
 
+SHORTCUT
+————————
+1. Add this to your ~/.bashrc file:
+
+    writeas() {
+        curl -F 'w=<-' http://cmd.write.as
+    }
+
+2. Run this to refresh:
+
+    . ~/.bashrc
+
+3. Now you can do this:
+
+    <command> | writeas
+
+
 You can also use telnet: nerds.write.as
 
 
@@ -27,3 +44,5 @@ https://github.com/writeas/cmd
 BUGS/ISSUES/YOU HACKED THE GIBSON
 —————————————————————————————————
 Report bugs and flaws to hello@write.as.
+
+
