@@ -38,7 +38,7 @@ func poster(w http.ResponseWriter, r *http.Request) {
 		friendlyId = store.GenerateFriendlyRandomString(store.FriendlyIdLen)
 		editToken := store.Generate62RandomString(32)
 
-		_, err = db.Exec("INSERT INTO posts (id, content, modify_token) VALUES (?, ?, ?)", friendlyId, post, editToken)
+		_, err = db.Exec("INSERT INTO posts (id, content, modify_token, text_appearance) VALUES (?, ?, ?, 'mono')", friendlyId, post, editToken)
 	}
 	if err != nil {
 		fmt.Printf("Error saving: %s\n", err)
