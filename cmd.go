@@ -14,9 +14,9 @@ import (
 )
 
 var (
-	outDir    string
+	outDir    *string
 	indexPage []byte
-	debugging bool
+	debugging *bool
 	db        *sql.DB
 )
 
@@ -30,9 +30,9 @@ func poster(w http.ResponseWriter, r *http.Request) {
 
 	var friendlyId string
 	var err error
-	if outDir != "" {
+	if *outDir != "" {
 		// Using file-based storage
-		friendlyId, err = store.SavePost(outDir, []byte(post))
+		friendlyId, err = store.SavePost(*outDir, []byte(post))
 	} else {
 		// Using database storage
 		friendlyId = store.GenerateFriendlyRandomString(store.FriendlyIdLen)
@@ -46,7 +46,7 @@ func poster(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if debugging {
+	if *debugging {
 		fmt.Printf("Saved new post %s\n", friendlyId)
 	}
 
@@ -58,18 +58,15 @@ func poster(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	outDirPtr := flag.String("o", "", "Directory where text files will be stored.")
-	staticDirPtr := flag.String("s", "./static", "Directory where required static files exist.")
-	portPtr := flag.Int("p", 8080, "Port to listen on.")
-	debugPtr := flag.Bool("debug", false, "Enables garrulous debug logging.")
+	staticDir := flag.String("s", "./static", "Directory where required static files exist.")
+	port := flag.Int("p", 8080, "Port to listen on.")
+	outDir = flag.String("o", "", "Directory where text files will be stored.")
+	debugging = flag.Bool("debug", false, "Enables garrulous debug logging.")
 	flag.Parse()
-
-	outDir = *outDirPtr
-	debugging = *debugPtr
 
 	fmt.Print("Initializing...")
 	var err error
-	indexPage, err = ioutil.ReadFile(*staticDirPtr + "/index.txt")
+	indexPage, err = ioutil.ReadFile(*staticDir + "/index.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -81,13 +78,13 @@ func main() {
 	dbName := os.Getenv("WA_DB")
 	dbHost := os.Getenv("WA_HOST")
 
-	if outDir == "" && (dbUser == "" || dbPassword == "" || dbName == "") {
+	if *outDir == "" && (dbUser == "" || dbPassword == "" || dbName == "") {
 		// Ensure parameters needed for storage (file or database) are given
 		fmt.Println("Database user, password, or database name not set.")
 		return
 	}
 
-	if outDir == "" {
+	if *outDir == "" {
 		fmt.Print("Connecting to database...")
 		db, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4", dbUser, dbPassword, dbHost, dbName))
 		if err != nil {
@@ -98,8 +95,8 @@ func main() {
 		fmt.Println("CONNECTED")
 	}
 
-	fmt.Printf("Serving on http://localhost:%d\n", *portPtr)
+	fmt.Printf("Serving on http://localhost:%d\n", *port)
 
 	http.HandleFunc("/", poster)
-	http.ListenAndServe(fmt.Sprintf(":%d", *portPtr), nil)
+	http.ListenAndServe(fmt.Sprintf(":%d", *port), nil)
 }
