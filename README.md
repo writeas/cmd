@@ -1,6 +1,6 @@
 Write.as
 ========
-[![Build Status](https://travis-ci.org/writeas/cmd.svg)](https://travis-ci.org/writeas/cmd) [![Public Slack discussion](http://slack.write.as/badge.svg)](http://slack.write.as/)
+[![Build Status](https://travis-ci.org/writeas/cmd.svg)](https://travis-ci.org/writeas/cmd) [![#writeas on freenode](https://img.shields.io/badge/freenode-%23writeas-blue.svg)](http://webchat.freenode.net/?channels=writeas) [![Public Slack discussion](http://slack.write.as/badge.svg)](http://slack.write.as/)
 
 This is a simple HTTP-based interface for publishing text. Users POST whatever they want to publish using the `w` parameter. When the request finishes, a URL is returned — this is the publicly-accessible address to the post on the web.
 
